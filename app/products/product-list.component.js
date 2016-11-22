@@ -9,32 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var product_service_1 = require('./product.service');
 var ProductListComponent = (function () {
-    function ProductListComponent() {
+    function ProductListComponent(productService) {
+        this.productService = productService;
         this.title = 'Page product';
         this.isShowImage = true;
-        this.products = [{
-                "productId": 1,
-                "productName": "Leaf Rake",
-                "productCode": "GDN-0011",
-                "releaseDate": "March 19, 2016",
-                "description": "Leaf rake with 48-inch wooden handle.",
-                "price": 19.95,
-                "starRating": 3.2,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/26215/Anonymous_Leaf_Rake.png"
-            },
-            {
-                "productId": 2,
-                "productName": "Garden Cart",
-                "productCode": "GDN-0023",
-                "releaseDate": "March 18, 2016",
-                "description": "15 gallon capacity rolling garden cart",
-                "price": 32.99,
-                "starRating": 4.2,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png"
-            }];
+        this.service = productService;
     }
     ProductListComponent.prototype.ngOnInit = function () {
+        this.products = this.service.getProducts();
     };
     ProductListComponent.prototype.onClickImage = function () {
         this.isShowImage = !this.isShowImage;
@@ -42,12 +26,17 @@ var ProductListComponent = (function () {
     ProductListComponent.prototype.searchProduct = function () {
         console.log(this.search);
     };
+    ProductListComponent.prototype.onRatingClicked = function (message) {
+        this.title = 'Product click ' + message;
+    };
     ProductListComponent = __decorate([
         core_1.Component({
             selector: 'my-products',
-            templateUrl: 'app/products/product-list.component.html'
+            moduleId: module.id,
+            templateUrl: 'product-list.component.html',
+            providers: [product_service_1.ProductService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [product_service_1.ProductService])
     ], ProductListComponent);
     return ProductListComponent;
 }());

@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var product_list_component_1 = require('./products/product-list.component');
 var product_filter_pipe_1 = require('./products/product-filter-pipe');
+var start_component_1 = require('./shared/start.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,7 +26,8 @@ var AppModule = (function () {
             declarations: [
                 app_component_1.AppComponent,
                 product_list_component_1.ProductListComponent,
-                product_filter_pipe_1.ProductFilterPipe
+                product_filter_pipe_1.ProductFilterPipe,
+                start_component_1.StartComponent
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
