@@ -11,14 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var product_service_1 = require('./product.service');
 var ProductListComponent = (function () {
-    function ProductListComponent(productService) {
-        this.productService = productService;
+    function ProductListComponent(service) {
+        this.service = service;
         this.title = 'Page product';
         this.isShowImage = true;
-        this.service = productService;
     }
     ProductListComponent.prototype.ngOnInit = function () {
-        this.products = this.service.getProducts();
+        var _this = this;
+        this.service.getProducts()
+            .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errMsg = error; });
     };
     ProductListComponent.prototype.onClickImage = function () {
         this.isShowImage = !this.isShowImage;

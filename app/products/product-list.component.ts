@@ -14,13 +14,18 @@ export class ProductListComponent implements OnInit{
     title: string = 'Page product';
     isShowImage : boolean = true;
     search: string;
-    service: ProductService;
     products : IProduct[];
-    constructor(private productService: ProductService) {
-        this.service = productService;
+    errMsg : string;
+
+    constructor(private service: ProductService) {
+
     }
     ngOnInit():void {
-        this.products = this.service.getProducts();
+        this.service.getProducts()
+            .subscribe(
+                products => this.products = products,
+                error => this.errMsg = <any>error
+            );
     }
     onClickImage() {
         this.isShowImage = ! this.isShowImage;

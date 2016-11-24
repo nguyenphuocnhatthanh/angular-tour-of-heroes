@@ -35,7 +35,7 @@
                 <tbody>
                     <tr *ngFor="let product of products | productFilter:search">
                         <td ><img width="50" height="50" [src]="product.imageUrl" alt="" [hidden]="! isShowImage"></td>
-                        <td>{{ product.productName}}</td>
+                        <td><a [routerLink]="['/products', product.productId]">{{ product.productName}}</a></td>
                         <td>{{ product.productCode}}</td>
                         <td>{{ product.releaseDate}}</td>
                         <td>{{ product.price | currency : 'USD'}}</td>

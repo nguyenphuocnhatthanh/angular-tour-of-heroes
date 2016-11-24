@@ -9,16 +9,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_product_1 = require('./mock-product');
+var http_1 = require('@angular/http');
+var Observable_1 = require("rxjs/Observable");
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/do');
+require('rxjs/add/operator/catch');
 var ProductService = (function () {
-    function ProductService() {
+    function ProductService(http) {
+        this.http = http;
+        this.productsUrl = 'http://linepro.dev/users';
     }
     ProductService.prototype.getProducts = function () {
-        return mock_product_1.PRODUCTS;
+        var headers = new http_1.Headers({ 'Accept': 'application/json' });
+        var options = new http_1.RequestOptions({ 'method': 'GET', 'headers': headers });
+        return this.http.get(this.productsUrl)
+            .map(this.extractData)
+            .do(function (data) { return console.log(data); })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.getProduct = function () {
+        return null;
+    };
+    ProductService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body.data || {};
+    };
+    ProductService.prototype.handleError = function (error) {
+        // in a real world app, we may send the server to some remote logging infrastructure
+        // instead of just logging it to the console
+        console.error(error);
+        return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
     ProductService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], ProductService);
     return ProductService;
 }());
